@@ -10,17 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_03_172529) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_053907) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
+  create_table "atmospheres", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "stadiums_id", null: false
+    t.integer "stadium_capacity", null: false
+    t.float "stadium_temperature", null: false
+    t.string "images", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stadiums_id"], name: "index_atmospheres_on_stadiums_id"
+  end
+
   create_table "internet_speeds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "place_id", null: false
-    t.float "download_speed", null: false
     t.string "download_units", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stadium_capacity"
     t.index ["place_id"], name: "index_internet_speeds_on_place_id"
   end
 
@@ -32,5 +42,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_03_172529) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "stadiums", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "address", null: false
+    t.string "location", null: false
+    t.string "city", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "atmospheres", "stadiums", column: "stadiums_id"
   add_foreign_key "internet_speeds", "places"
 end
