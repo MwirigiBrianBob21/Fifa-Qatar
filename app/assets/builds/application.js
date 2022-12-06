@@ -1012,7 +1012,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect2(create, deps) {
+          function useEffect(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1792,7 +1792,7 @@
           exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect2;
+          exports.useEffect = useEffect;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
@@ -22899,13 +22899,21 @@
   // app/javascript/components/places_list.jsx
   var import_react = __toESM(require_react());
   var import_client = __toESM(require_client());
-  var PlaceList = class extends import_react.default.Component {
-    render() {
-      return /* @__PURE__ */ import_react.default.createElement("div", null, " Places list rendered in react");
+  function PlacesList() {
+    const [loading, setLoading] = (0, import_react.useState)(true);
+    const [loadedStadiums, setLoadedStadiums] = (0, import_react.useState)([]);
+    const loadingSection = /* @__PURE__ */ import_react.default.createElement("div", null, "loading");
+    const dataSection = loadedStadiums.map(
+      (stadium, index) => /* @__PURE__ */ import_react.default.createElement("div", { key: index }, /* @__PURE__ */ import_react.default.createElement("table", null, /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("th", null, "Name"), /* @__PURE__ */ import_react.default.createElement("th", null, "City"), /* @__PURE__ */ import_react.default.createElement("th", null, "Recent Stadium Capacity"), /* @__PURE__ */ import_react.default.createElement("th", null, "Recent Stadium Temperature"), /* @__PURE__ */ import_react.default.createElement("th", null, "Number of measurements")), /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("td", null, stadium.name), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.city), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.stadium_capacity), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.stadium_temperatures), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.number_of_measurements))))
+    );
+    if (loading) {
+      return loadingSection;
+    } else {
+      return dataSection;
     }
-  };
-  var placeList = import_client.default.createRoot(document.getElementById("places-list-container"));
-  placeList.render(/* @__PURE__ */ import_react.default.createElement(PlaceList, null));
+  }
+  var placesList = import_client.default.createRoot(document.getElementById("places-list-container"));
+  placesList.render(/* @__PURE__ */ import_react.default.createElement(PlacesList, null));
 })();
 /**
  * @license React
