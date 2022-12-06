@@ -1012,7 +1012,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect(create, deps) {
+          function useEffect2(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1792,7 +1792,7 @@
           exports.useContext = useContext;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect;
+          exports.useEffect = useEffect2;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
@@ -22902,9 +22902,16 @@
   function PlacesList() {
     const [loading, setLoading] = (0, import_react.useState)(true);
     const [loadedStadiums, setLoadedStadiums] = (0, import_react.useState)([]);
+    (0, import_react.useEffect)(() => {
+      const apiEndpoint = "api/fields";
+      fetch(apiEndpoint).then((res) => res.json()).then((data) => {
+        setLoadedStadiums(data["fields"]);
+        setLoading(false);
+      });
+    }, []);
     const loadingSection = /* @__PURE__ */ import_react.default.createElement("div", null, "loading");
     const dataSection = loadedStadiums.map(
-      (stadium, index) => /* @__PURE__ */ import_react.default.createElement("div", { key: index }, /* @__PURE__ */ import_react.default.createElement("table", null, /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("th", null, "Name"), /* @__PURE__ */ import_react.default.createElement("th", null, "City"), /* @__PURE__ */ import_react.default.createElement("th", null, "Recent Stadium Capacity"), /* @__PURE__ */ import_react.default.createElement("th", null, "Recent Stadium Temperature"), /* @__PURE__ */ import_react.default.createElement("th", null, "Number of measurements")), /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("td", null, stadium.name), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.city), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.stadium_capacity), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.stadium_temperatures), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.number_of_measurements))))
+      (stadium, index) => /* @__PURE__ */ import_react.default.createElement("div", { key: index }, /* @__PURE__ */ import_react.default.createElement("table", null, /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("th", null, "Name"), /* @__PURE__ */ import_react.default.createElement("th", null, "City"), /* @__PURE__ */ import_react.default.createElement("th", null, "Address")), /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("td", null, stadium.name), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.city), /* @__PURE__ */ import_react.default.createElement("td", null, stadium.address))))
     );
     if (loading) {
       return loadingSection;

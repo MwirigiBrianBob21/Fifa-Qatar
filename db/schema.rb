@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_161833) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_231019) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -35,10 +35,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_161833) do
 
   create_table "internet_speeds", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "field_id", null: false
-    t.string "stadium_temperatures", null: false
+    t.float "stadium_temperatures", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "stadium_capacity"
+    t.integer "stadium_capacity"
+    t.string "image_url"
     t.index ["field_id"], name: "index_internet_speeds_on_field_id"
   end
 
