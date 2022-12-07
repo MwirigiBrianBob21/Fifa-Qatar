@@ -22896,10 +22896,10 @@
     }
   });
 
-  // app/javascript/components/places_list.jsx
+  // app/javascript/components/fields_list.jsx
   var import_react = __toESM(require_react());
   var import_client = __toESM(require_client());
-  function renderPlacesPage(body) {
+  function renderFieldsPage(body, onSearchTextChange) {
     return /* @__PURE__ */ import_react.default.createElement("div", { className: "bg-white p-8 rounded-md w-full" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "flex items-center justify-between pb-6" }, /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("h2", { className: "text-4xl text-gray-600 font-semibold" }, "FifaQatar")), /* @__PURE__ */ import_react.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "flex bg-gray-50 items-center p-2 rounded-md" }, /* @__PURE__ */ import_react.default.createElement(
       "svg",
       {
@@ -22914,37 +22914,37 @@
           d: "M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
         }
       )
-    ), /* @__PURE__ */ import_react.default.createElement("input", { className: "bg-gray-50 outline-none ml-1 block w", type: "text", name: "", id: "", placeholder: "search..." })), /* @__PURE__ */ import_react.default.createElement("div", { className: "lg:ml-40 ml-10 space-x-8" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer" }, "Photo Gallery")))), body);
+    ), /* @__PURE__ */ import_react.default.createElement("input", { className: "bg-gray-50 outline-none ml-1 block w", type: "text", name: "", id: "", placeholder: "search...", onChange: onSearchTextChange })), /* @__PURE__ */ import_react.default.createElement("div", { className: "lg:ml-40 ml-10 space-x-8" }, /* @__PURE__ */ import_react.default.createElement("button", { className: "bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer" }, "World Cup Gallery")))), body);
   }
-  function PlacesList() {
+  function FieldsList() {
     const [loading, setLoading] = (0, import_react.useState)(true);
-    const [loadedPlaces, setLoadedPlaces] = (0, import_react.useState)([]);
+    const [loadedFields, setLoadedFields] = (0, import_react.useState)([]);
+    const [searchInput, setSearchInput] = (0, import_react.useState)("");
     (0, import_react.useEffect)(() => {
-      const apiEndpoint = "/api/fields";
+      const apiEndpoint = `/api/fields?search_input=${searchInput}`;
       fetch(apiEndpoint).then((response) => response.json()).then((data) => {
         console.log(data);
-        setLoadedPlaces(data["fields"]);
+        setLoadedFields(data["fields"]);
         setLoading(false);
       });
-    }, [searchTerm]);
+    }, [searchInput]);
     const onSearchTextChange = (e) => {
-      console.log("onSearchTextChange was executed!");
       setLoading(true);
-      setSearchTerm(e.target.value);
+      setSearchInput(e.target.value);
     };
-    const loadingSection = /* @__PURE__ */ import_react.default.createElement("div", null, "Loading...");
+    const loadingSection = /* @__PURE__ */ import_react.default.createElement("div", null, "Welcome to Qatar");
     const tableHeaderClass = "px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider";
-    const dataSection = /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("div", { className: "-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "inline-block min-w-full shadow rounded-lg overflow-hidden" }, /* @__PURE__ */ import_react.default.createElement("table", { className: "min-w-full leading-normal" }, /* @__PURE__ */ import_react.default.createElement("thead", null, /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "Name"), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "City"), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "Address"), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "Capacity"), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "Temperatures"))), /* @__PURE__ */ import_react.default.createElement("tbody", null, loadedPlaces.map((place, index) => {
+    const dataSection = /* @__PURE__ */ import_react.default.createElement("div", null, /* @__PURE__ */ import_react.default.createElement("div", { className: "-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "inline-block min-w-full shadow rounded-lg overflow-hidden" }, /* @__PURE__ */ import_react.default.createElement("table", { className: "min-w-full leading-normal" }, /* @__PURE__ */ import_react.default.createElement("thead", null, /* @__PURE__ */ import_react.default.createElement("tr", null, /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "Name"), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "City"), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "Address"), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "Capacity"), /* @__PURE__ */ import_react.default.createElement("th", { className: tableHeaderClass }, "Temperatures"))), /* @__PURE__ */ import_react.default.createElement("tbody", null, loadedFields.map((place, index) => {
       return /* @__PURE__ */ import_react.default.createElement("tr", { key: index }, /* @__PURE__ */ import_react.default.createElement("td", { className: "px-5 py-5 border-b border-gray-200 bg-white text-sm" }, /* @__PURE__ */ import_react.default.createElement("img", { src: place.imageUrl, alt: `A photo of ${place.name}` })), /* @__PURE__ */ import_react.default.createElement("td", { className: "px-5 py-5 border-b border-gray-200 bg-white text-sm" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "flex items-center" }, /* @__PURE__ */ import_react.default.createElement("div", { className: "ml-3" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "text-gray-900 whitespace-no-wrap" }, place.name)))), /* @__PURE__ */ import_react.default.createElement("td", { className: "px-5 py-5 border-b border-gray-200 bg-white text-sm" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "text-gray-900 whitespace-no-wrap" }, place.city)), /* @__PURE__ */ import_react.default.createElement("td", { className: "px-5 py-5 border-b border-gray-200 bg-white text-sm" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "text-gray-900 whitespace-no-wrap" }, place.address)), /* @__PURE__ */ import_react.default.createElement("td", { className: "px-5 py-5 border-b border-gray-200 bg-white text-sm" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "text-gray-900 whitespace-no-wrap" }, place.capacity)), /* @__PURE__ */ import_react.default.createElement("td", { className: "px-5 py-5 border-b border-gray-200 bg-white text-sm" }, /* @__PURE__ */ import_react.default.createElement("p", { className: "text-gray-900 whitespace-no-wrap" }, place.recent_stadium_temperatures)));
     }))))));
     if (loading) {
-      return renderPlacesPage(loadingSection);
+      return renderFieldsPage(loadingSection, onSearchTextChange);
     } else {
-      return renderPlacesPage(dataSection);
+      return renderFieldsPage(dataSection, onSearchTextChange);
     }
   }
-  var placesList = import_client.default.createRoot(document.getElementById("page-places"));
-  placesList.render(/* @__PURE__ */ import_react.default.createElement(PlacesList, null));
+  var fieldsList = import_client.default.createRoot(document.getElementById("page-places"));
+  fieldsList.render(/* @__PURE__ */ import_react.default.createElement(FieldsList, null));
 })();
 /**
  * @license React

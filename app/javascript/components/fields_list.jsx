@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 
 
 
-function renderPlacesPage(body) {
+function renderFieldsPage(body, onSearchTextChange) {
     return (
         <div className="bg-white p-8 rounded-md w-full">
             <div className="flex items-center justify-between pb-6">
@@ -19,10 +19,10 @@ function renderPlacesPage(body) {
                                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                                 />
                         </svg>
-                        <input className="bg-gray-50 outline-none ml-1 block w" type="text" name="" id="" placeholder="search..." />
+                        <input className="bg-gray-50 outline-none ml-1 block w" type="text" name="" id="" placeholder="search..." onChange={onSearchTextChange}/>
                     </div>
                     <div className="lg:ml-40 ml-10 space-x-8">
-                        <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Photo Gallery</button>
+                        <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">World Cup Gallery</button>
                     </div>
                 </div>
             </div>
@@ -31,32 +31,34 @@ function renderPlacesPage(body) {
     )
 }
 
-function PlacesList() {
+function FieldsList() {
     // State as: A minimum set of parameters that fully represents
     // what you want to render on the screen.
     // showLoading: Boolean
-    // loadedPlaces: [] => gets filled
+    // loadedFields: [] => gets filled
     const [loading, setLoading] = useState(true);
-    const [loadedPlaces, setLoadedPlaces] = useState([]);
+    const [loadedFields, setLoadedFields] = useState([]);
+    const [searchInput, setSearchInput] = useState("");
+
     useEffect(() => {
-        // Hit the server and get the places list.
-        const apiEndpoint = "/api/fields"
+        // Hit the server and get the fields list.
+        const apiEndpoint = `/api/fields?search_input=${searchInput}`
         fetch(apiEndpoint)
             .then(response => response.json())
             .then(data => {
                 console.log(data)
-                setLoadedPlaces(data["fields"])
+                setLoadedFields(data["fields"])
                 setLoading(false)
             });
-        }, [searchTerm])
+        }, [searchInput])
 
         const onSearchTextChange = (e) =>  {
-          console.log("onSearchTextChange was executed!")
+        //   console.log("onSearchTextChange was executed!")
           setLoading(true);
-          setSearchTerm(e.target.value);
+          setSearchInput(e.target.value);
         }
 
-    const loadingSection = (<div>Loading...</div>)
+    const loadingSection = (<div>Welcome to Qatar</div>)
 
     const tableHeaderClass = "px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
     const dataSection = (
@@ -78,7 +80,7 @@ function PlacesList() {
 
                         </thead>
                         <tbody>
-                            {loadedPlaces.map((place, index) => {
+                            {loadedFields.map((place, index) => {
                                 return (
 
 
@@ -129,11 +131,11 @@ function PlacesList() {
 
     if (loading) {
         // return loadingSection
-        return renderPlacesPage(loadingSection)
+        return renderFieldsPage(loadingSection, onSearchTextChange)
     } else {
         // return dataSection
-        return renderPlacesPage(dataSection)
+        return renderFieldsPage(dataSection, onSearchTextChange)
     }
 }
-const placesList = ReactDOM.createRoot(document.getElementById("page-places"));
-placesList.render(<PlacesList />);
+const fieldsList = ReactDOM.createRoot(document.getElementById("page-places"));
+fieldsList.render(<FieldsList />);

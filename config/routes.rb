@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "fields#index"
 
-  # get 'api/places', to: "api/places#index"
   get 'api/fields', to: "api/fields#index"
 
 end

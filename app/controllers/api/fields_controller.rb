@@ -2,18 +2,22 @@ module Api
     class FieldsController < ApplicationController
 
         def index
-            fields = Field.all.map do |place|
+            # fields = Field.all.map do |field|
+                fields = show_similar_stadiums(params["search_input"]).map do |field|
                 {
-                    name: place.name,
-                    city: place.city,
-                    address: place.address,
-                    recent_stadium_temperatures: place.internet_speeds.order('created_at DESC').first.try(:stadium_temperatures)
+                    name: field.name,
+                    city: field.city,
+                    address: field.address,
+                    recent_stadium_temperatures: field.internet_speeds.order('created_at DESC').first.try(:stadium_temperatures)
 
                 }
             end
 
             render(json: {fields: fields})
         end
+
+        
+
 
         private
         def most_recent_stadium_temperatures
@@ -23,9 +27,15 @@ module Api
           
             render(json: {field_id: field.id, most_recent_stadium_temperature: recent_temperature})
           end
+
           
-
-
+          def show_similar_stadiums(search_input)
+            if search_input.blank?
+              Field.all
+            else
+              Field.where("name LIKE :search_input OR city LIKE :search_input", search_input: "%#{search_input}%")
+            end
+          end
 
 
         
