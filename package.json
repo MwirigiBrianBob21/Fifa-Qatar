@@ -2,11 +2,16 @@
   "name": "app",
   "private": "true",
   "dependencies": {
+    "autoprefixer": "^10.4.13",
     "esbuild": "^0.15.16",
+    "postcss": "^8.4.19",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-bootstrap": "^2.6.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.2.4"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets",
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
   }
 }
