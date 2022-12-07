@@ -1,80 +1,133 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { Table } from 'react-bootstrap';
-
-
-function PlacesList() {
-    const [loading, setLoading] = useState(true)
-    const [loadedStadiums, setLoadedStadiums] = useState([])
-
-    useEffect(() => {
-        const apiEndpoint = "api/fields"
-        fetch(apiEndpoint)
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data["fields"])
-                setLoadedStadiums(data["fields"])
-                setLoading(false)
-            })
-    }, [])
-
-    const loadingSection = (<div>loading</div>)
-    const dataSection =
-
-
-    <Table
-    striped
-    bordered
-    hover
-    className="bg-dark text-light w-100 mt-4"
-    style={{
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-    }}
-  >
-             <thead className="thead-dark text-light font-weight-bold text-center">
-  <tr>
-    <th>Name</th>
-    <th>City</th>
-    <th>Address</th>
-  </tr>
-</thead>
-            <tbody>
-                {loadedStadiums.map((stadium, index) => {
-
-                    return (
-                        <tr key={index}>
-                            <td>{stadium.name}</td>
-                            <td>{stadium.city}</td>
-                            <td>{stadium.address}</td>
-
-                        </tr>)
-                })}
-            </tbody>
-
-        </Table>
+// import { Table } from 'react-bootstrap';
 
 
 
-    if (loading) {
-        return loadingSection
-
-    } else {
-        return dataSection
-    }
-
-
+function renderPlacesPage(body) {
+    return (
+        <div class="bg-white p-8 rounded-md w-full">
+            <div class="flex items-center justify-between pb-6">
+                <div>
+                    <h2 class="text-4xl text-gray-600 font-semibold">FifaQatar</h2>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex bg-gray-50 items-center p-2 rounded-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <input class="bg-gray-50 outline-none ml-1 block w" type="text" name="" id="" placeholder="search..." />
+                    </div>
+                    <div class="lg:ml-40 ml-10 space-x-8">
+                        <button class="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Photo Gallery</button>
+                    </div>
+                </div>
+            </div>
+            {body}
+        </div>
+    )
 }
 
-// export default PlacesList
+function PlacesList() {
+    // State as: A minimum set of parameters that fully represents
+    // what you want to render on the screen.
+    // showLoading: Boolean
+    // loadedPlaces: [] => gets filled
+    const [loading, setLoading] = useState(true);
+    const [loadedPlaces, setLoadedPlaces] = useState([]);
+    useEffect(() => {
+        // Hit the server and get the places list.
+        const apiEndpoint = "/api/fields"
+        fetch(apiEndpoint)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                setLoadedPlaces(data["fields"])
+                setLoading(false)
+            });
+    }, [])
 
-// class PlaceList extends React.Component {
-//     render() {
-//         return (
-//             <div> Places list rendered in react</div>
-//         )
-//     }
-// }
+    const loadingSection = (<div>Loading...</div>)
 
-const placesList = ReactDOM.createRoot(document.getElementById("places-list-container"));
-placesList.render(<PlacesList />)
+    const tableHeaderClass = "px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider"
+    const dataSection = (
+        <div>
+            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+                <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                    <table className="min-w-full leading-normal">
+                        <thead>
+                            <tr>
+                                <th className={tableHeaderClass}></th>
+                                <th className={tableHeaderClass}>Name</th>
+                                <th className={tableHeaderClass}>City</th>
+                                <th className={tableHeaderClass}>Address</th>
+
+                                <th className={tableHeaderClass}>Capacity</th>
+                                <th className={tableHeaderClass}>Temperatures</th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            {loadedPlaces.map((place, index) => {
+                                return (
+
+
+                                    <tr key={index}>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <img src={place.imageUrl} alt={`A photo of ${place.name}`} />
+                                        </td>
+
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <div class="flex items-center">
+                                                <div class="ml-3">
+                                                    <p class="text-gray-900 whitespace-no-wrap">{place.name}</p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p class="text-gray-900 whitespace-no-wrap">{place.city}</p>
+                                        </td>
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p class="text-gray-900 whitespace-no-wrap">
+                                                {place.address}
+                                            </p>
+                                        </td>
+
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p class="text-gray-900 whitespace-no-wrap">
+                                                {place.capacity}
+                                            </p>
+                                        </td>
+
+                                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                            <p class="text-gray-900 whitespace-no-wrap">
+                                                {place.recent_stadium_temperatures}
+                                            </p>
+                                        </td>
+
+
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    )
+
+    if (loading) {
+        // return loadingSection
+        return renderPlacesPage(loadingSection)
+    } else {
+        // return dataSection
+        return renderPlacesPage(dataSection)
+    }
+}
+const placesList = ReactDOM.createRoot(document.getElementById("page-places"));
+placesList.render(<PlacesList />);
