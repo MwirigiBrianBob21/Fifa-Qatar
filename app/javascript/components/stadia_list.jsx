@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
+// import ReactDOM from "react-dom/client";
+import { Link } from "react-router-dom"
 
 // class StadiumsList extends React.Component {
 //   render() {
@@ -8,12 +9,12 @@ import ReactDOM from "react-dom/client";
 //     )
 //   }
 // }
-function renderPlacesPage(body) {
+function renderPlacesPage(body, onSearchTextChange) {
   return (
     <div className="bg-white p-8 rounded-md w-full">
       <div className="flex items-center justify-between pb-6">
         <div>
-          <h2 className="text-4xl text-gray-600 font-semibold">Places</h2>
+          <h2 className="text-4xl text-gray-600 font-semibold">Stadiums</h2>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex bg-gray-50 items-center p-2 rounded-md">
@@ -23,11 +24,20 @@ function renderPlacesPage(body) {
                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                 />
             </svg> */}
-            <input className="bg-gray-50 outline-none ml-1 block w" type="text" name="" id="" placeholder="search..." />
+            <input
+              className="bg-gray-50 outline-none ml-1 block w"
+              type="text"
+              name=""
+              id=""
+              placeholder="search..."
+              onChange={onSearchTextChange}
+              />
           </div>
           <div className="lg:ml-40 ml-10 space-x-8">
-            <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">New Log</button>
-          </div>
+          <Link to="/upload-photo">
+              <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">New Photos</button>
+            </Link>
+                      </div>
         </div>
       </div>
       {body}
@@ -36,14 +46,17 @@ function renderPlacesPage(body) {
     
   )
 }
-function StadiaList() {
+export default function StadiaList() {
 
   const [loading, setLoading] = useState(true);
   const [loadedStadia, setLoadedStadia] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
 
   useEffect(() => {
     // Hit the server and get the stadia list.
-    const apiEndpoint = "/api/stadia"
+    const apiEndpoint = `/api/stadia?search_term=${searchTerm}`
+
     fetch(apiEndpoint)
       .then(response => response.json())
       .then(data => {
@@ -51,7 +64,13 @@ function StadiaList() {
         setLoadedStadia(data["stadia"])
         setLoading(false)
       });
-  }, [])
+  }, [searchTerm])
+
+   const onSearchTextChange = (e) =>  {
+    console.log("onSearchTextChange was executed!")
+    setLoading(true);
+    setSearchTerm(e.target.value);
+  }
 
   const loadingSection = (<div>Loading...</div>)
   
@@ -67,7 +86,7 @@ function StadiaList() {
                 <th className={tableHeaderClass}>Name</th>
                 <th className={tableHeaderClass}>City</th>
                 <th className={tableHeaderClass}>Capacity</th>
-                <th className={tableHeaderClass}>Description</th>
+                {/* <th className={tableHeaderClass}>Description</th> */}
               </tr>
             </thead>
             <tbody>
@@ -93,7 +112,7 @@ function StadiaList() {
                   </tr>
                 )
               })}
-                   </tbody>
+            </tbody>
           </table>
         </div>
       </div>
@@ -101,12 +120,10 @@ function StadiaList() {
   )
 
   if (loading) {
-    return renderPlacesPage(loadingSection)
+    return renderPlacesPage(loadingSection, onSearchTextChange)
   } else {
-    return renderPlacesPage(dataSection)
+    return renderPlacesPage(dataSection, onSearchTextChange)
   }
 }
 // Add some javascript to replace the div where = "places-list-container"
 // with content rendered above.
-const placesList = ReactDOM.createRoot(document.getElementById("pages-stadia"));
-placesList.render(<StadiaList />);
