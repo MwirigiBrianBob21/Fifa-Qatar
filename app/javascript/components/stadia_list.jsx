@@ -15,12 +15,12 @@ function StadiaList() {
   const [loadedStadia, setLoadedStadia] = useState([]);
 
   useEffect(() => {
-      // Hit the server and get the stadia list.
-      const apiEndpoint = "/api/stadia"
-      fetch(apiEndpoint)
+    // Hit the server and get the stadia list.
+    const apiEndpoint = "/api/stadia"
+    fetch(apiEndpoint)
       .then(response => response.json())
       .then(data => {
-        // console.log(data)
+        console.log(data)
         setLoadedStadia(data["stadia"])
         setLoading(false)
       });
@@ -34,28 +34,33 @@ function StadiaList() {
 
     <div key={index}>
       <table>
-        <tr>
-          <th>Name</th>
-          <th>City</th>
-          <th>Capacity</th>
-        </tr>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Capacity</th>
+          </tr>
+        </thead>
+
+        <tbody>
         <tr>
           <td>{stadium.name}</td>
           <td>{stadium.city}</td>
           <td>{stadium.capacity}</td>
         </tr>
+        </tbody>
       </table>
     </div>
   )
 
 
-    if (loading) {
+  if (loading) {
     return loadingSection
   } else {
     return dataSection
   }
 }
-  // Add some javascript to replace the div where = "places-list-container"
-  // with content rendered above.
-  const placesList = ReactDOM.createRoot(document.getElementById("stadiums-container"));
-  placesList.render(<StadiaList />);
+// Add some javascript to replace the div where = "places-list-container"
+// with content rendered above.
+const placesList = ReactDOM.createRoot(document.getElementById("stadiums-container"));
+placesList.render(<StadiaList />);
