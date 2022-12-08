@@ -1,5 +1,5 @@
 class StadiaController < ApplicationController
     def index
-        render "stadia/index"
+        render "pages/stadia/index"
       end
 end
