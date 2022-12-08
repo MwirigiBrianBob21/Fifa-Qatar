@@ -15,6 +15,8 @@ module Api
 
         render(json: { stadia: stadia} )
     end
+
+    
   
      
     end
