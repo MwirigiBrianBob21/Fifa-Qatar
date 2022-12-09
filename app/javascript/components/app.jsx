@@ -10,12 +10,14 @@ import {
 
 import StadiaList from "./stadia_list"
 import NewImage from "./new_image"
+import NewInternetSpeed from "./new_internet_speed"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/new-image" element={<NewImage />} />
+        <Route path="/new-internet-speed" element={<NewInternetSpeed />} />
         <Route path="*" element={<StadiaList />} />
       </Routes>
     </BrowserRouter>

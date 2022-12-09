@@ -5,11 +5,11 @@ import { Link } from "react-router-dom"
 // class StadiumsList extends React.Component {
 //   render() {
 //     return (
-//       <div> Places list rendered in react!</div>
+//       <div> Stadiums list rendered in react!</div>
 //     )
 //   }
 // }
-function renderPlacesPage(body, onSearchTextChange) {
+function renderStadiumsPage(body, onSearchTextChange) {
   return (
     <div className="bg-white p-8 rounded-md w-full">
       <div className="flex items-center justify-between pb-6">
@@ -29,13 +29,13 @@ function renderPlacesPage(body, onSearchTextChange) {
               type="text"
               name=""
               id=""
-              placeholder="search..."
+              stadiumholder="search..."
               onChange={onSearchTextChange}
               />
           </div>
           <div className="lg:ml-40 ml-10 space-x-8">
-              <Link to="/new-image">
-                  <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Contribute</button>
+              <Link to="/new-internet-speed">
+                  <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Help Visitors</button>
               </Link>
           </div>
         </div>
@@ -90,22 +90,22 @@ export default function StadiaList() {
               </tr>
             </thead>
             <tbody>
-            {loadedStadia.map((place, index) => {
+            {loadedStadia.map((stadium, index) => {
                 return (
                   <tr key={index}>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <div className="flex items-center">
                         <div className="ml-3">
-                          <p className="text-gray-900 whitespace-no-wrap">{place.name}</p>
+                          <p className="text-gray-900 whitespace-no-wrap">{stadium.name}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <p className="text-gray-900 whitespace-no-wrap">{place.city}</p>
+                      <p className="text-gray-900 whitespace-no-wrap">{stadium.city}</p>
                     </td>
                     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                       <p className="text-gray-900 whitespace-no-wrap">
-                        {place.capacity}
+                        {stadium.capacity}
                       </p>
                     </td>
                     
@@ -120,10 +120,10 @@ export default function StadiaList() {
   )
 
   if (loading) {
-    return renderPlacesPage(loadingSection, onSearchTextChange)
+    return renderStadiumsPage(loadingSection, onSearchTextChange)
   } else {
-    return renderPlacesPage(dataSection, onSearchTextChange)
+    return renderStadiumsPage(dataSection, onSearchTextChange)
   }
 }
-// Add some javascript to replace the div where = "places-list-container"
+// Add some javascript to restadium the div where = "stadiums-list-container"
 // with content rendered above.

@@ -1,16 +1,37 @@
 module Api
-  class StadiaController < ApplicationController
+  class StadiaController < BaseController
     def index
       stadia = get_matching_stadia(params["search_term"]).map do |stadium|
         {
           name: stadium.name,
           city: stadium.location,
           capacity: stadium.capacity
+          # most_recent_image: most_recent_image(stadium)
+          most_recent_download_speed: most_recent_download_speed(stadium),
+          most_recent_download_units: most_recent_download_units(stadium),
+          number_of_measurements: number_of_measurements(stadium)
         }
+          
+      
       end
 
       render(json: { stadia: stadia })
     end
+
+    def most_recent_download_speed(stadium)
+      # Assume that all the units are the same.
+      stadium.internet_speeds.order("created_at").last&.download_speed
+    end
+    def most_recent_download_units(stadium)
+      stadium.internet_speeds.order("created_at").last&.download_units
+    end
+    def number_of_measurements(stadium)
+      stadium.internet_speeds.count
+    end
+
+    # def most_recent_image(stadium)
+    #   stadium.images.order("created_at").last&.image
+    # end
 
     # def show
     #   # Retrieve the Stadium with the given id
