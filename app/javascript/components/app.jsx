@@ -9,13 +9,13 @@ import {
 } from "react-router-dom";
 
 import StadiaList from "./stadia_list"
-import Images from "./images"
+import NewImage from "./new_image"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/new-internet-speed" element={<Images />} />
+        <Route path="/new-image" element={<NewImage />} />
         <Route path="*" element={<StadiaList />} />
       </Routes>
     </BrowserRouter>

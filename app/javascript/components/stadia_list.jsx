@@ -34,10 +34,10 @@ function renderPlacesPage(body, onSearchTextChange) {
               />
           </div>
           <div className="lg:ml-40 ml-10 space-x-8">
-          <Link to="/upload-photo">
-              <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">New Photos</button>
-            </Link>
-                      </div>
+              <Link to="/new-image">
+                  <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Contribute</button>
+              </Link>
+          </div>
         </div>
       </div>
       {body}

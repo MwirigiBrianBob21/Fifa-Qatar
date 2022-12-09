@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :stadia, only: [:index, :show]
   end
+
+  get "upload-photo", to: "images#new"
 end
