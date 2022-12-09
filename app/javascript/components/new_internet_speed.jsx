@@ -52,6 +52,13 @@ export default function NewInternetSpeed() {
       }
     }
   }, [latestDownloadSpeed])
+
+
+  const stadiumFieldsMissing = stadiumName.length == 0 || stadiumCity.length == 0
+  let buttonClass = "w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+  if (stadiumFieldsMissing) {
+    buttonClass = "w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full focus:outline-none focus:shadow-outline disabled:opacity-25"
+  }
   
   return (
     <div className="bg-white p-8 rounded-md w-full">
@@ -104,7 +111,8 @@ export default function NewInternetSpeed() {
         }
         {!testInProgress && downloadSpeeds.length == 0 && (
           <button
-            className="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+          disabled={stadiumFieldsMissing}
+            className={buttonClass}
             type="button"
             onClick={() => setTestInProgress(true)}
           >
