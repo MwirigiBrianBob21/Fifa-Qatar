@@ -9,5 +9,8 @@ Rails.application.routes.draw do
     resources :stadia, only: [:index, :show]
   end
 
-  get "upload-photo", to: "images#new"
+  # get "upload-photo", to: "images#new"
+
+  get "*path", to: "react#home"
+  root "react#home"
 end
