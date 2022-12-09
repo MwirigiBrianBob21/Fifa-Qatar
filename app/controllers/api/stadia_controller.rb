@@ -46,7 +46,7 @@ module Api
       if search_term.blank?
         Stadium.all
       else
-        Stadium.where("name LIKE :search_term OR city LIKE :search_term", search_term: "%#{search_term}%")
+        Stadium.where("name LIKE :search_term OR location LIKE :search_term", search_term: "%#{search_term}%")
       end
     end
   end
