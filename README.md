@@ -13,7 +13,7 @@ Installation
 
 ** Clone the repository **
 
-git clone https://github.com/YOUR_USERNAME/FifaQatar.git
+git clone https://github.com/MwirigiBrianBob21/FifaQatar.git
 
 
 ** Install dependencies **
