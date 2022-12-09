@@ -11,40 +11,41 @@ React
 Installation
 
 
-** Clone the repository **
+**Clone the repository**
 
 git clone https://github.com/MwirigiBrianBob21/FifaQatar.git
 
 
-** Install dependencies **
+**Install dependencies**
 
-npm install
-bundle install
+### npm install
+### bundle install
 
 # Start the app
 
-npm start
+### npm start
 
 
 ### Contributing
 
-- Fork the repository
+## - Fork the repository
 
-- ** Create your feature branch**
+- *Create your feature branch*
 
-     - * git checkout -b feature/your-feature *
-
-
-- ** Commit your changes ** 
-
-     - * git commit -m "Add your-feature" * 
+     - *git checkout -b feature/your-feature*
 
 
--  ** Push to the branch **
+- *Commit your changes*
 
-       - * git push origin feature/your-feature
-- ** Create a new Pull Request **
+     - *git commit -m "Add your-feature"* 
 
 
-*** License ***
-FifaQatar is licensed under the MIT License. See LICENSE for more information
+-  **Push to the branch**
+
+      - *git push origin feature/your-feature*
+       
+- **Create a new Pull Request**
+
+
+## License 
+FifaQatar is licensed under the *MIT* License. See LICENSE for more information
