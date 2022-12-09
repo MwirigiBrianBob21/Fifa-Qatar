@@ -16,11 +16,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+      <Route path="*" element={<StadiaList />} />
         {/* <Route path="/new-image" element={<NewImage />} /> */}
         <Route path="/new-internet-speed" element={<NewInternetSpeed />} />
         <Route path="/gallery" element={<ImagesContainer />} />
 
-        <Route path="*" element={<StadiaList />} />
       </Routes>
     </BrowserRouter>
   );

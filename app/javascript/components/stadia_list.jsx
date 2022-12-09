@@ -44,6 +44,8 @@ function renderStadiumsPage(body, onSearchTextChange) {
           </div>
         </div>
       </div>
+      {/* Add NavBar code*/}
+      
       {body}
     </div>
 
