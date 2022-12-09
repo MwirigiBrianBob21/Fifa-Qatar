@@ -16,10 +16,11 @@ const ImagesContainer = () => {
         <div key={image.id}>
           <img src={image.url} alt={image.description} />
           <p>{image.description}</p>
+          <p>Stadium Name: {image.stadium_name}</p>
         </div>
       ))}
     </div>
   );
 };
 
-export default ImagesContainer
+export default ImagesContainer;
