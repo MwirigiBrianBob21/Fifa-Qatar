@@ -9,15 +9,17 @@ import {
 } from "react-router-dom";
 
 import StadiaList from "./stadia_list"
-import NewImage from "./new_image"
+import ImagesContainer from "./images_container"
 import NewInternetSpeed from "./new_internet_speed"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/new-image" element={<NewImage />} />
+        {/* <Route path="/new-image" element={<NewImage />} /> */}
         <Route path="/new-internet-speed" element={<NewInternetSpeed />} />
+        <Route path="/gallery" element={<ImagesContainer />} />
+
         <Route path="*" element={<StadiaList />} />
       </Routes>
     </BrowserRouter>

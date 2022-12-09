@@ -35,20 +35,20 @@ export default function NewInternetSpeed() {
           body: JSON.stringify(data),
         })
 
-        .then((response) => {
-          if (response.ok) {
-            navigate("/")
-          } else {
-            // This will stop the speed test.
+          .then((response) => {
+            if (response.ok) {
+              navigate("/")
+            } else {
+              // This will stop the speed test.
+              location.reload()
+            }
+            setTestInProgress(false)
+            setDownloadSpeeds([])
+          })
+          .catch((error) => {
+            console.error('Network Error:', error);
             location.reload()
-          }
-          setTestInProgress(false)
-          setDownloadSpeeds([])
-        })
-        .catch((error) => {
-          console.error('Network Error:', error);
-          location.reload()
-        });
+          });
       }
     }
   }, [latestDownloadSpeed])
@@ -59,7 +59,7 @@ export default function NewInternetSpeed() {
   if (stadiumFieldsMissing) {
     buttonClass = "w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full focus:outline-none focus:shadow-outline disabled:opacity-25"
   }
-  
+
   return (
     <div className="bg-white p-8 rounded-md w-full">
       <div className="flex items-center justify-between pb-6">
@@ -72,16 +72,20 @@ export default function NewInternetSpeed() {
         <label className="block mb-2 text-sm font-bold text-gray-700">
           Stadium Name
         </label>
-        <input
+        <select
           className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
           id="placeName"
-          type="text"
-          placeholder="Stadium Name"
           onChange={(e) => setStadiumName(e.target.value)}
-        />
+        >
+          <option value="">Select a stadium</option>
+          <option value="Stadium 1">{stadium[0]}</option>
+          <option value="Stadium 2">Stadium 2</option>
+          <option value="Stadium 3">Stadium 3</option>
+          ...
+        </select>
       </div>
       <div className="md:ml-2 mt-2 w-96">
-      <label className="block mb-2 text-sm font-bold text-gray-700">          City
+        <label className="block mb-2 text-sm font-bold text-gray-700">          City
         </label>
         <input
           className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
@@ -92,33 +96,33 @@ export default function NewInternetSpeed() {
         />
       </div>
 
-      {testInProgress && 
-          <div>
-            <div>Testing...</div>
-            <ReactInternetSpeedMeter  
-              txtSubHeading="Internet is too slow"
-              outputType="alert"
-              customClassName={null}
-              txtMainHeading="Opps..." 
-              pingInterval={SPEED_TEST_PING_INTERVAL_MS}
-              thresholdUnit='megabyte' // "byte" , "kilobyte", "megabyte" 
-              threshold={0}
-              imageUrl="https://cdn.speedcheck.org/images/reviews/google-speed-test-mobile.jpg"
-              downloadSize="157000"  //bytes
-              callbackFunctionOnNetworkTest={(speed)=>setLatestDownloadSpeed(speed)}
-            />
-          </div>
-        }
-        {!testInProgress && downloadSpeeds.length == 0 && (
-          <button
+      {testInProgress &&
+        <div>
+          <div>Testing...</div>
+          <ReactInternetSpeedMeter
+            txtSubHeading="Internet is too slow"
+            outputType="alert"
+            customClassName={null}
+            txtMainHeading="Opps..."
+            pingInterval={SPEED_TEST_PING_INTERVAL_MS}
+            thresholdUnit='megabyte' // "byte" , "kilobyte", "megabyte" 
+            threshold={0}
+            imageUrl="https://cdn.speedcheck.org/images/reviews/google-speed-test-mobile.jpg"
+            downloadSize="157000"  //bytes
+            callbackFunctionOnNetworkTest={(speed) => setLatestDownloadSpeed(speed)}
+          />
+        </div>
+      }
+      {!testInProgress && downloadSpeeds.length == 0 && (
+        <button
           disabled={stadiumFieldsMissing}
-            className={buttonClass}
-            type="button"
-            onClick={() => setTestInProgress(true)}
-          >
-            Start speed test
-          </button>
-        )}
+          className={buttonClass}
+          type="button"
+          onClick={() => setTestInProgress(true)}
+        >
+          Start speed test
+        </button>
+      )}
     </div>
   )
 }

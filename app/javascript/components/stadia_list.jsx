@@ -37,6 +37,10 @@ function renderStadiumsPage(body, onSearchTextChange) {
               <Link to="/new-internet-speed">
                   <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Help Visitors</button>
               </Link>
+              <Link to="/gallery">
+                <button className="bg-indigo-600 px-4 py-2 rounded-md text-white font-semibold tracking-wide cursor-pointer">Gallery</button>
+
+              </Link>
           </div>
         </div>
       </div>
@@ -46,6 +50,8 @@ function renderStadiumsPage(body, onSearchTextChange) {
     
   )
 }
+
+
 export default function StadiaList() {
 
   const [loading, setLoading] = useState(true);
@@ -125,5 +131,10 @@ export default function StadiaList() {
     return renderStadiumsPage(dataSection, onSearchTextChange)
   }
 }
+
+
+// import React, { useState, useEffect } from "react";
+
+
 // Add some javascript to restadium the div where = "stadiums-list-container"
 // with content rendered above.

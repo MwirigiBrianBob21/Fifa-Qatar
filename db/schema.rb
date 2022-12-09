@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_094634) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_111904) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -26,6 +26,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_094634) do
     t.decimal "download_speed"
     t.float "download_units"
     t.integer "stadium_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "stadia", force: :cascade do |t|
