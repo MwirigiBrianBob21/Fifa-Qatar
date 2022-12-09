@@ -1,0 +1,6 @@
+[submodule "Fifa-Qatar"]
+	path = Fifa-Qatar
+	url = git@github.com:MwirigiBrianBob21/Fifa-Qatar.git
+[submodule "FifaQatar3"]
+	path = FifaQatar3
+	url = git@github.com:MwirigiBrianBob21/Fifa-Qatar.git
